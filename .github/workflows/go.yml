@@ -25,7 +25,6 @@ jobs:
   discord_notify:
     name: Notify
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request.opened'
     steps:
     - name: Discord notification
       uses: Ilshidur/action-discord@master
