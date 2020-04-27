@@ -26,6 +26,10 @@ jobs:
     name: Notify
     runs-on: ubuntu-latest
     steps:
+    - name: print variables
+      run: echo "Event Name: ${EVENT_NAME}"
+      env: 
+        EVENT_NAME: github.event_name
     - name: Discord notification
       uses: Ilshidur/action-discord@master
       env:
