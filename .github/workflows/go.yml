@@ -21,3 +21,15 @@ jobs:
       id: go
     - name: Test
       run: go test -coverprofile=cover.out ./...
+  
+  discord_notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request.opened'
+    steps:
+    - name: Discord notification
+      uses: Ilshidur/action-discord@master
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
