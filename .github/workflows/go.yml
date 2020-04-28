@@ -26,10 +26,6 @@ jobs:
     name: Notify
     runs-on: ubuntu-latest
     steps:
-    - name: print variables
-      env: 
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
     - name: Discord notification
       uses: Ilshidur/action-discord@master
       env:
