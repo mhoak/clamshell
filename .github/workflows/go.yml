@@ -22,10 +22,10 @@ jobs:
     - name: Test
       run: go test -coverprofile=cover.out ./...
   
-  discord_notify:
+  new_pull_request:
     name: Notify
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' and github.event.action == 'opened'
     steps:
     - name: print variables
       env: 
@@ -38,7 +38,8 @@ jobs:
       with:
         args: >
           Pull Request [#{{EVENT_PAYLOAD.number}}]({{EVENT_PAYLOAD.pull_request._links.html.href}}) 
-          submitted by [{{EVENT_PAYLOAD.sender.login}}]({{EVENT_PAYLOAD.sender.html_url}}) has been assigned to 
+          by [{{EVENT_PAYLOAD.sender.login}}]({{EVENT_PAYLOAD.sender.html_url}}) has been assigned to 
           [{{EVENT_PAYLOAD.pull_request.assignees[0].login}}]({{EVENT_PAYLOAD.pull_request.assignees[0].html_url}}) -
           *{{EVENT_PAYLOAD.pull_request.title}}*
+
 
