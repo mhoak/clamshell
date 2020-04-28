@@ -21,3 +21,27 @@ jobs:
       id: go
     - name: Test
       run: go test -coverprofile=cover.out ./...
+  
+  new_pull_request:
+    name: Notify
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+    - name: print variables
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Discord notification
+      uses: Ilshidur/action-discord@master
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+        args: >
+          Pull Request [#{{EVENT_PAYLOAD.number}}]({{EVENT_PAYLOAD.pull_request._links.html.href}}) 
+          by [{{EVENT_PAYLOAD.sender.login}}]({{EVENT_PAYLOAD.sender.html_url}}) has been assigned to 
+          [{{EVENT_PAYLOAD.pull_request.assignees[0].login}}]({{EVENT_PAYLOAD.pull_request.assignees[0].html_url}}) -
+          *{{EVENT_PAYLOAD.pull_request.title}}*
+
+
+
+
