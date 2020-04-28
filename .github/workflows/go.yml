@@ -35,4 +35,4 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-        args: 'Pull Request <a href="{{EVENT_PAYLOAD.pull_request.html.href}}">#{{EVENT_PAYLOAD.number}}</a> {{ EVENT_PAYLOAD.sender.login}} has been ... something'
+        args: 'Pull Request <a href="{{EVENT_PAYLOAD.pull_request._links.html.href}}">#{{EVENT_PAYLOAD.number}}</a> {{ EVENT_PAYLOAD.sender.login}} has been ... something'
