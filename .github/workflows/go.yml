@@ -22,7 +22,7 @@ jobs:
       run: go test -coverprofile=cover.out ./...
   
   deploy:
-    name: Terraform Deploy Dev
+    name: Deploy Dev
     runs-on: ubuntu-latest
 #     if: github.event.pull_request.merged == true
       
@@ -32,12 +32,12 @@ jobs:
         
       - name: Terraform Init
         id: init
-        run: terraform init -input=false tf/
+        run: terraform init -input=false $GITHUB_WORKSPACE/tf/
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -out=out.tfplan tf/
+        run: terraform plan -out=out.tfplan $GITHUB_WORKSPACE/tf/
       
       - name: Terraform Apply
         id: tf-apply
-        run: terraform apply -out=plan.tfplan -var="api_docker_image=gcr.io/google-samples/hello-app:2.0" tf/
+        run: terraform apply -out=plan.tfplan -var="api_docker_image=gcr.io/google-samples/hello-app:2.0" $GITHUB_WORKSPACE/tf/
