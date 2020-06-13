@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: hashicorp/setup-terraform@v1
-    
     - name: Set up Go 1.14
       uses: actions/setup-go@v2
       with:
@@ -22,9 +20,16 @@ jobs:
       id: go
     - name: Test
       run: go test -coverprofile=cover.out ./...
-
-    - name: Terraform Init
-      id: init
-      run: terraform init -input=false tf/
+  
+  deploy:
+    name: something
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false tf/
 
       
