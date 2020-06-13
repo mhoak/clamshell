@@ -22,8 +22,10 @@ jobs:
       run: go test -coverprofile=cover.out ./...
   
   deploy:
-    name: something
+    name: Terraform Deploy Dev
     runs-on: ubuntu-latest
+#     if: github.event.pull_request.merged == true
+      
     steps:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
@@ -32,4 +34,10 @@ jobs:
         id: init
         run: terraform init -input=false tf/
 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=out.tfplan tf/
       
+      - name: Terraform Apply
+        id: tf-apply
+        run: terraform apply -out=plan.tfplan -var="api_docker_image=gcr.io/google-samples/hello-app:2.0" tf/
