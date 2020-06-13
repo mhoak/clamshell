@@ -26,7 +26,5 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init -input=false -from-module=./tf
-      terraform plan -out=tfplan -input=false 
-      terraform apply -input=false -auto-approve tfplan
-      
+
       
