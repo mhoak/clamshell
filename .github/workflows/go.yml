@@ -32,7 +32,7 @@ jobs:
         
       - name: Terraform Init
         id: init
-        run: terraform init -input=false tf/
+        run: pwd && ls -a &&  terraform init -input=false tf/
 
       - name: Terraform Plan
         id: plan
