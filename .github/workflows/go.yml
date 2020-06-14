@@ -32,7 +32,7 @@ jobs:
         
       - name: Terraform Init
         id: init
-        run: terraform init -input=false tf/
+        run: terraform init -input=false -from-module=$GITHUB_WORKSPACE/tf
 
       - name: Terraform Plan
         id: plan
