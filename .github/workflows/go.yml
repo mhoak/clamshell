@@ -24,11 +24,11 @@ jobs:
   print:
     name: Print
     runs-on: ubuntu-latest
+    env:
+      SOMETHING: ${{github}}
     steps: 
-      - name: mh-test
-        run: core.exportVariable('SOMETHING', github);
       - name: test-print
-        run: echo "${SOMETHING}"
+        run: echo $SOMETHING
 
   deploy:
     name: Deploy Dev
