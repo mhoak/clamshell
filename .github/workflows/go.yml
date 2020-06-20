@@ -20,6 +20,13 @@ jobs:
       id: go
     - name: Test
       run: go test -coverprofile=cover.out ./...
+  
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps: 
+      - name: mh-test
+        run: echo "${github}"
 
   deploy:
     name: Deploy Dev
