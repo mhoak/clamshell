@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, m2 ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, m2 ]
 
 jobs:
 
@@ -20,6 +20,15 @@ jobs:
       id: go
     - name: Test
       run: go test -coverprofile=cover.out ./...
+  
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
   deploy:
     name: Deploy Dev
