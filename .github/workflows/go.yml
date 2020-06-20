@@ -26,7 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: mh-test
-        run: echo "${github}"
+        run: core.exportVariable('SOMETHING', github);
+      - name: test-print
+        run: echo "${SOMETHING}"
 
   deploy:
     name: Deploy Dev
