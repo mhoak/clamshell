@@ -74,3 +74,11 @@ jobs:
       with:
         run: shadow
         token: ${{ secrets.GITHUB_TOKEN }}
+
+  DockerBuild:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@master
+      - name: docker-build
+        run: docker build -t otrego-server:${GITHUB_RUN_NUMBER} . 
